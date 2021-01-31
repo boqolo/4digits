@@ -1,13 +1,62 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "../node_modules/purecss/build/base-min.css";
+@import "../node_modules/purecss/build/grids-min.css";
+@import "../node_modules/purecss/build/forms-min.css";
+@import "../node_modules/purecss/build/buttons-min.css";
+
+:root {
+    --near-black: #2e3440;
+    --greyish: #434c5e;
+    --whale-blue: #5e81ac;
+    --whiteish: #e5e9f0;
+    --banana: #ebcb8b;
+    --green: #a3be8c;
+    --red: #bf616a;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    background: var(--near-black);
+    color: var(--whiteish);
+    font-family: "Andale Mono", "Helvetica", sans-serif;
 }
+
+.center {
+    margin: 0 auto;
+}
+
+.game-container {
+    width: 360px;
+    background: var(--greyish);
+    margin: 10% auto;
+    padding: 0 3%;
+    border-radius: 10px;
+}
+
+.input-container {
+    border: 3px dashed greenyellow;
+    border-radius: 10px;
+    width: 100%;
+    margin: 10% 0 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.6em;
+}
+
+.guess-field {
+    width: 98%;
+    border-radius: 5px;
+    margin: 2% auto;
+    font-size: 4.2em;
+    text-align: center;
+}
+
+input:focus {
+    color: var(--red);
+    outline: none;
+}
+

@@ -3,31 +3,57 @@ import React from "react";
 
 export default function InputContainer(props) {
 
-    // 4-tuple of digits 0-9
-    const [guess, setGuess] = React.useState(props.ans); // TODO init empty
-    const [canSubmit, setCanSubmit] = React.useState(false);
+    const MAX_LENGTH = 4;
 
+    // 4-tuple of digits 0-9
+    const [guess, setGuess] = React.useState([]);
+    const [canSubmit, setCanSubmit] = React.useState(false);
+    const [inputValue, setInputValue] = React.useState("");
+
+    /***
+     * Determine if input is valid and can be submitted as a guess.
+     */
     React.useEffect(function () {
-        // TODO guess submission validation
-        let isValidGuess = true;
-        if (isValidGuess) {
+        const validGuess = inputValue.length === MAX_LENGTH; // TODO check if not in guess history
+        if (validGuess) {
+            const nextGuess = Array.from(inputValue).map((e) => parseInt(e));
+            setGuess(nextGuess);
             setCanSubmit(true);
         } else {
             setCanSubmit(false);
         }
-    }, [guess]);
+    }, [inputValue]);
 
-    // TODO Keyboard controlled input; setGuess
+    function controlTextInput(ev) {
+        const guessFieldValue = ev.target.value;
+        const digitPressed = guessFieldValue[guessFieldValue.length - 1];
+        const validKeys = "1234567890";
+        if (guessFieldValue.length < inputValue.length ||
+            (inputValue.length < guessFieldValue.length &&
+                !inputValue.includes(digitPressed)
+                && validKeys.includes(digitPressed))) {
+            setInputValue(guessFieldValue);
+        }
+    }
+
+    function pressedEnter(ev) {
+        if (ev.key === "Enter" && canSubmit) {
+            props.submitHandler(guess);
+        }
+    }
 
     return (
         <div className={"input-container"}>
-            <input className={"guess-field"} type={"text"}
-                maxLength={4} autoFocus={false}/>
+            <input className={"guess-field"} type={"text"} value={inputValue}
+                onKeyPress={pressedEnter}
+                maxLength={MAX_LENGTH} autoFocus={false}
+                onChange={controlTextInput}/>
             <div className={"buttons-container"}>
                 <button className={"pure-button medium"}
-                    onClick={() => console.log("PRESSED RESET")}>Reset
+                    onClick={() => setInputValue("")}>Reset
                 </button>
                 <button className={"pure-button pure-button-primary medium"}
+                    disabled={!canSubmit}
                     onClick={() => props.submitHandler(guess)}>Submit
                 </button>
             </div>

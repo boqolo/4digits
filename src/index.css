@@ -19,8 +19,13 @@ body {
     font-family: "Andale Mono", "Helvetica", sans-serif;
 }
 
-.center {
-    margin: 0 auto;
+button {
+    box-shadow: 4px 4px 10px var(--near-black);
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0px 0px 2px var(--whiteish);
 }
 
 .game-container {
@@ -32,7 +37,7 @@ body {
 }
 
 .input-container {
-    border: 3px dashed greenyellow;
+    /*border: 3px dashed greenyellow;*/
     border-radius: 10px;
     width: 100%;
     margin: 10% 0 10%;
@@ -49,14 +54,12 @@ body {
 
 .guess-field {
     width: 98%;
-    border-radius: 5px;
-    margin: 2% auto;
+    border-radius: 2px;
+    margin: 0 auto 5%;
     font-size: 4.2em;
     text-align: center;
+    letter-spacing: 2px;
 }
 
-input:focus {
-    color: var(--red);
-    outline: none;
-}
+
 

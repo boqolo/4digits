@@ -1,7 +1,7 @@
 import React from "react";
+import {isValidInput, isDuplicateGuess} from "../util/logic";
 
-
-export default function InputContainer(props) {
+export default function InputField(props) {
 
     const MAX_LENGTH = 4;
 
@@ -19,29 +19,36 @@ export default function InputContainer(props) {
      * Determine if input is valid and can be submitted as a guess.
      */
     React.useEffect(function () {
-        const hasGuessedBefore = undefined; // TODO easy to check if have util
-        const validGuess = inputValue.length === MAX_LENGTH; // TODO check if not in guess history
+        const validGuess = inputValue.length === MAX_LENGTH;
         if (validGuess) {
             const nextGuess = Array.from(inputValue).map((e) => parseInt(e));
-            setGuess(nextGuess);
-            setCanSubmit(true);
+            const hasGuessedBefore = isDuplicateGuess(nextGuess, props.guessesSoFar);
+
+            if (!hasGuessedBefore) {
+                setGuess(nextGuess);
+                setCanSubmit(true);
+            }
         } else {
             setCanSubmit(false);
         }
     }, [inputValue]);
 
+    /**
+     * Validate input.
+     * @param ev Keyboard event
+     */
     function controlTextInput(ev) {
-        const guessFieldValue = ev.target.value;
-        const digitPressed = guessFieldValue[guessFieldValue.length - 1];
-        const validKeys = "1234567890";
-        if (guessFieldValue.length < inputValue.length ||
-            (inputValue.length < guessFieldValue.length &&
-                !inputValue.includes(digitPressed)
-                && validKeys.includes(digitPressed))) {
-            setInputValue(guessFieldValue);
+        const newInputValue = ev.target.value;
+        const keyPressed = newInputValue[newInputValue.length - 1];
+        if (isValidInput(inputValue, newInputValue, keyPressed)) {
+            setInputValue(newInputValue);
         }
     }
 
+    /**
+     * Allow pressing enter for guess submission.
+     * @param ev Keyboard event
+     */
     function pressedEnter(ev) {
         if (ev.key === "Enter" && canSubmit) {
             submitGuess(guess);
@@ -63,8 +70,6 @@ export default function InputContainer(props) {
                     onClick={() => submitGuess(guess)}>Submit
                 </button>
             </div>
-            {/*<button className={"pure-button button-main-restart"} onClick={() => {}}>Restart</button>*/}
         </div>
     );
-
 }

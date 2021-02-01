@@ -1,7 +1,14 @@
 import React from "react";
-import InputContainer from "./InputContainer";
+import InputField from "./InputField";
 import GuessList from "./GuessList";
-import uniqueAnswer from "../util/uniqueAnswer";
+import {
+    create4Digits,
+    getGuessAccuracy,
+    isDuplicateGuess,
+    isGuessCorrect,
+    getBulls,
+    getCows
+} from "../util/logic";
 
 
 export default function FourDigits() {
@@ -9,39 +16,32 @@ export default function FourDigits() {
     const MAX_GUESSES = 8;
 
     // 4-tuple of digits 0-9
-    const [answer, setAnswer] = React.useState(uniqueAnswer());
+    const [answer, setAnswer] = React.useState(create4Digits());
     // Array of [[n, n, n, n], numCorrectDigits, numCorrectPlacement]
     const [guessHistory, setGuessHistory] = React.useState([]);
     const [gameIsWon, setGameIsWon] = React.useState(false);
 
     function restartGame() {
-        setAnswer(uniqueAnswer());
+        setAnswer(create4Digits());
         setGuessHistory([]);
         setGameIsWon(false);
     }
 
     function submitGuess(guess) {
-        const guessAccuracy = guess.map((e, i) => {
-            return guess[i] === answer[i];
-        });
+        if (isDuplicateGuess(guess, guessHistory)) {
+            return;
+        }
 
-        const guessIsCorrect = guessAccuracy.every((e) => {
-            return e;
-        });
+        const guessAccuracy = getGuessAccuracy(guess, answer);
+        const guessIsCorrect = isGuessCorrect(guessAccuracy);
 
         if (guessIsCorrect) {
             setGameIsWon(true);
         } else {
-            // TODO move to util
-            const numCorrectPlacement = guessAccuracy.reduce((acc, e) => {
-                return e ? acc + 1 : acc;
-            }, 0);
-
-            const numCorrectDigits = guess.reduce((acc, e) => {
-                return answer.includes(e) ? acc + 1 : acc;
-            }, 0);
-
-            setGuessHistory(guessHistory.concat([[guess, numCorrectDigits, numCorrectPlacement]]));
+            const numCorrectPlace = getBulls(guessAccuracy);
+            const numCorrectDigits = getCows(guess, answer);
+            const archivedGuess = [[guess, numCorrectDigits, numCorrectPlace]];
+            setGuessHistory(guessHistory.concat(archivedGuess));
         }
     }
 
@@ -70,7 +70,7 @@ export default function FourDigits() {
                 </button>
             </>}
             <p>Answer is: {answer}</p>
-            {!gameIsWon && <><InputContainer submitHandler={submitGuess}
+            {!gameIsWon && <><InputField submitHandler={submitGuess}
                 guessesSoFar={guessHistory}/>
             <div className={"button-main-restart-container"}>
                 <button className={"pure-button button-main-restart"}

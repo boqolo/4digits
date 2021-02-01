@@ -70,8 +70,14 @@ export default function FourDigits() {
                 </button>
             </>}
             <p>Answer is: {answer}</p>
-            {!gameIsWon && <InputContainer submitHandler={submitGuess}
-                guessesSoFar={guessHistory}/>}
+            {!gameIsWon && <><InputContainer submitHandler={submitGuess}
+                guessesSoFar={guessHistory}/>
+            <div className={"button-main-restart-container"}>
+                <button className={"pure-button button-main-restart"}
+                    onClick={restartGame}>Restart
+                </button>
+            </div>
+            </>}
             <GuessList guesses={guessHistory}/>
         </div>
     );

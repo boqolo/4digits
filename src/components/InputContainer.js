@@ -49,7 +49,7 @@ export default function InputContainer(props) {
     }
 
     return (
-        <div className={"input-container"}>
+        <div className={"input-container"} role={"group"}>
             <input className={"guess-field"} type={"text"} value={inputValue}
                 onKeyPress={pressedEnter}
                 maxLength={MAX_LENGTH} autoFocus={false}
@@ -63,6 +63,7 @@ export default function InputContainer(props) {
                     onClick={() => submitGuess(guess)}>Submit
                 </button>
             </div>
+            {/*<button className={"pure-button button-main-restart"} onClick={() => {}}>Restart</button>*/}
         </div>
     );
 

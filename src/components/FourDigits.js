@@ -14,6 +14,12 @@ export default function FourDigits() {
     const [guessHistory, setGuessHistory] = React.useState([]);
     const [gameIsWon, setGameIsWon] = React.useState(false);
 
+    function restartGame() {
+        setAnswer(uniqueAnswer());
+        setGuessHistory([]);
+        setGameIsWon(false);
+    }
+
     function submitGuess(guess) {
         const guessAccuracy = guess.map((e, i) => {
             return guess[i] === answer[i];
@@ -39,15 +45,16 @@ export default function FourDigits() {
         }
     }
 
+    /**
+     * Check if out of guesses (GameOver).
+     */
     if (guessHistory.length === MAX_GUESSES) {
         return <div className={"game-container"}>
             <h1>Game Over.</h1>
             <p>The answer was {answer}</p>
-            <button className={"pure-button pure-button-primary medium"}
-                onClick={() => {
-                    setAnswer(uniqueAnswer());
-                    setGuessHistory([]);
-                }}>Restart</button>
+            <button className={"pure-button pure-button-primary"}
+                onClick={restartGame}>Restart
+            </button>
         </div>;
     }
 
@@ -55,9 +62,15 @@ export default function FourDigits() {
     return (
         <div className={"game-container"}>
             <h1 className={"game-title-header"}>4Digits</h1>
-            {gameIsWon && <h1 className={"game-won-header"}>You won!</h1>}
+            {gameIsWon && <>
+                <h1 className={"game-won-header"}>You won!</h1>
+                <button className={"pure-button pure-button-primary"}
+                    onClick={restartGame}>Restart
+                </button>
+            </>}
             <p>Answer is: {answer}</p>
-            <InputContainer submitHandler={submitGuess} guessesSoFar={guessHistory}/>
+            <InputContainer submitHandler={submitGuess}
+                guessesSoFar={guessHistory}/>
             <GuessList guesses={guessHistory}/>
         </div>
     );

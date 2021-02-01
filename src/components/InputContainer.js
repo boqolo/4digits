@@ -14,6 +14,7 @@ export default function InputContainer(props) {
      * Determine if input is valid and can be submitted as a guess.
      */
     React.useEffect(function () {
+        const hasGuessedBefore = undefined; // TODO easy to check if have util
         const validGuess = inputValue.length === MAX_LENGTH; // TODO check if not in guess history
         if (validGuess) {
             const nextGuess = Array.from(inputValue).map((e) => parseInt(e));
@@ -49,10 +50,10 @@ export default function InputContainer(props) {
                 maxLength={MAX_LENGTH} autoFocus={false}
                 onChange={controlTextInput}/>
             <div className={"buttons-container"}>
-                <button className={"pure-button medium"}
-                    onClick={() => setInputValue("")}>Reset
+                <button className={"pure-button"}
+                    onClick={() => setInputValue("")}>Clear
                 </button>
-                <button className={"pure-button pure-button-primary medium"}
+                <button className={"pure-button pure-button-primary"}
                     disabled={!canSubmit}
                     onClick={() => props.submitHandler(guess)}>Submit
                 </button>

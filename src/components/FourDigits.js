@@ -13,7 +13,6 @@ export default function FourDigits() {
     // Array of [[n, n, n, n], numCorrectDigits, numCorrectPlacement]
     const [guessHistory, setGuessHistory] = React.useState([]);
     const [gameIsWon, setGameIsWon] = React.useState(false);
-    const [gameIsLost, setGameIsLost] = React.useState(false);
 
     function submitGuess(guess) {
         const guessAccuracy = guess.map((e, i) => {
@@ -40,21 +39,26 @@ export default function FourDigits() {
         }
     }
 
-
-    // React.useEffect(function () {
-    //     if (guessHistory.length === MAX_GUESSES) {
-    //         setGameIsLost(true);
-    //     }
-    // }, [guessHistory]);
+    if (guessHistory.length === MAX_GUESSES) {
+        return <div className={"game-container"}>
+            <h1>Game Over.</h1>
+            <p>The answer was {answer}</p>
+            <button className={"pure-button pure-button-primary medium"}
+                onClick={() => {
+                    setAnswer(uniqueAnswer());
+                    setGuessHistory([]);
+                }}>Restart</button>
+        </div>;
+    }
 
 
     return (
-        <div className={"game-container center"}>
-            {gameIsWon && <h1>You won!</h1>}
-            {gameIsLost && <h1>Game Over :(</h1>}
-            <h1>Answer is: {answer}</h1>
-            <InputContainer submitHandler={submitGuess} ans={answer}/>
-            {/*<GuessList guesses={guessHistory}/>*/}
+        <div className={"game-container"}>
+            <h1 className={"game-title-header"}>4Digits</h1>
+            {gameIsWon && <h1 className={"game-won-header"}>You won!</h1>}
+            <p>Answer is: {answer}</p>
+            <InputContainer submitHandler={submitGuess} guessesSoFar={guessHistory}/>
+            <GuessList guesses={guessHistory}/>
         </div>
     );
 

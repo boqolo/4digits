@@ -17,7 +17,7 @@
 body {
     background: var(--near-black);
     color: var(--whiteish);
-    font-family: "Andale Mono", "Helvetica", sans-serif;
+    font-family: "Andale Mono", "Open Sans", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* PureCSS Grid style compatibility */
@@ -48,7 +48,7 @@ input:focus {
 .game-container {
     width: 360px;
     background: var(--greyish);
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 1% 3% 2%;
     border-radius: 10px;
     user-select: none;
@@ -57,7 +57,6 @@ input:focus {
 
 .input-container {
     border-radius: 10px;
-    width: 100%;
     margin: 5% 0 5%;
     display: flex;
     flex-direction: column;
@@ -71,10 +70,9 @@ input:focus {
 }
 
 .guess-field {
-    width: 98%;
     border: 1px dotted var(--whiteish);
-    border-radius: 50px;
-    margin: 0 auto 5%;
+    border-radius: 10px;
+    margin: 0 0 5%;
     font-size: 4.2em;
     text-align: center;
     letter-spacing: 2px;
@@ -98,4 +96,10 @@ input:focus {
 
 .guess-item {
     margin: 0 0 2%;
+}
+
+@media only screen and (max-width: 800px) {
+    .game-container {
+       width: 300px;
+    }
 }

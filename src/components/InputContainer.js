@@ -10,6 +10,11 @@ export default function InputContainer(props) {
     const [canSubmit, setCanSubmit] = React.useState(false);
     const [inputValue, setInputValue] = React.useState("");
 
+    function submitGuess() {
+        props.submitHandler(guess);
+        setInputValue("");
+    }
+
     /***
      * Determine if input is valid and can be submitted as a guess.
      */
@@ -39,7 +44,7 @@ export default function InputContainer(props) {
 
     function pressedEnter(ev) {
         if (ev.key === "Enter" && canSubmit) {
-            props.submitHandler(guess);
+            submitGuess(guess);
         }
     }
 
@@ -55,7 +60,7 @@ export default function InputContainer(props) {
                 </button>
                 <button className={"pure-button pure-button-primary"}
                     disabled={!canSubmit}
-                    onClick={() => props.submitHandler(guess)}>Submit
+                    onClick={() => submitGuess(guess)}>Submit
                 </button>
             </div>
         </div>

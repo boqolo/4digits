@@ -64,13 +64,14 @@ export default function FourDigits() {
             <h1 className={"game-title-header"}>4Digits</h1>
             {gameIsWon && <>
                 <h1 className={"game-won-header"}>You won!</h1>
+                <h2>The 4 digits were: {answer}</h2>
                 <button className={"pure-button pure-button-primary"}
                     onClick={restartGame}>Restart
                 </button>
             </>}
             <p>Answer is: {answer}</p>
-            <InputContainer submitHandler={submitGuess}
-                guessesSoFar={guessHistory}/>
+            {!gameIsWon && <InputContainer submitHandler={submitGuess}
+                guessesSoFar={guessHistory}/>}
             <GuessList guesses={guessHistory}/>
         </div>
     );

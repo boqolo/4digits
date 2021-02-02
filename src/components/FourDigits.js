@@ -69,7 +69,6 @@ export default function FourDigits() {
                     onClick={restartGame}>Restart
                 </button>
             </>}
-            <p>Answer is: {answer}</p>
             {!gameIsWon && <><InputField submitHandler={submitGuess}
                 guessesSoFar={guessHistory}/>
             <div className={"button-main-restart-container"}>

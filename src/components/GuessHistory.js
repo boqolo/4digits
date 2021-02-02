@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function GuessHistory(props) {
+export default function GuessHistory({guesses}) {
 
     return (
-        <>
+        <div>
             <label className={"guess-list-label"}>Guesses:</label>
             <div className={"pure-g guess-list"}>
-                {props.guesses.map((guess, i) => {
+                {guesses.map((guess, i) => {
                     return <div className={"pure-u-1-1 guess-item"}>
                         <div className={"pure-u-1-6"}>#{i + 1}</div>
                         <div className={"pure-u-1-4"}>{guess[0]}</div>
@@ -15,7 +15,7 @@ export default function GuessHistory(props) {
                     </div>;
                 })}
             </div>
-        </>
+        </div>
     );
 
 }

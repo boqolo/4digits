@@ -1,17 +1,21 @@
 import React from "react";
 import {isValidInput, isDuplicateGuess} from "../util/logic";
 
-export default function MakeGuess(props) {
+export default function GuessControls({
+    inputValue,
+    setInputValue,
+    submitHandler,
+    guessesSoFar
+}) {
 
     const MAX_LENGTH = 4;
 
     // 4-tuple of digits 0-9
     const [guess, setGuess] = React.useState([]);
     const [canSubmit, setCanSubmit] = React.useState(false);
-    const [inputValue, setInputValue] = React.useState("");
 
     function submitGuess() {
-        props.submitHandler(guess);
+        submitHandler(guess);
         setInputValue("");
     }
 
@@ -22,7 +26,7 @@ export default function MakeGuess(props) {
         const validGuess = inputValue.length === MAX_LENGTH;
         if (validGuess) {
             const nextGuess = Array.from(inputValue).map((e) => parseInt(e));
-            const hasGuessedBefore = isDuplicateGuess(nextGuess, props.guessesSoFar);
+            const hasGuessedBefore = isDuplicateGuess(nextGuess, guessesSoFar);
 
             if (!hasGuessedBefore) {
                 setGuess(nextGuess);

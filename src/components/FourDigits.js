@@ -1,5 +1,5 @@
 import React from "react";
-import MakeGuess from "./MakeGuess";
+import GuessControls from "./GuessControls";
 import GuessHistory from "./GuessHistory";
 import {
     create4Digits,
@@ -9,6 +9,7 @@ import {
     getBulls,
     getCows
 } from "../util/logic";
+import GameOver from "./GameOver";
 
 // Main Game Component
 export default function FourDigits() {
@@ -18,6 +19,7 @@ export default function FourDigits() {
     // 4-tuple of digits 0-9
     const [answer, setAnswer] = React.useState(create4Digits());
     // Array of [[n, n, n, n], numCorrectDigits, numCorrectPlacement]
+    const [inputValue, setInputValue] = React.useState("");
     const [guessHistory, setGuessHistory] = React.useState([]);
     const [gameIsWon, setGameIsWon] = React.useState(false);
 
@@ -25,6 +27,7 @@ export default function FourDigits() {
         setAnswer(create4Digits());
         setGuessHistory([]);
         setGameIsWon(false);
+        setInputValue("");
     }
 
     function submitGuess(guess) {
@@ -46,38 +49,41 @@ export default function FourDigits() {
     }
 
     /**
-     * Check if out of guesses (GameOver).
+     * Conditionally select body.
      */
+    let body;
+
     if (guessHistory.length === MAX_GUESSES) {
-        return <div className={"game-container"}>
-            <h1>Game Over.</h1>
-            <p>The 4 digits were {answer}</p>
-            <button className={"pure-button pure-button-primary"}
-                onClick={restartGame}>Restart
-            </button>
-        </div>;
+        body = <GameOver answer={answer} restartGame={restartGame}/>;
+    } else {
+        body =
+            <>
+                <h1 className={"game-title-header"}>4Digits</h1>
+                {gameIsWon && <>
+                    <h1 className={"game-won-header"}>You won!</h1>
+                    <h2>The 4 digits were: {answer}</h2>
+                    <button className={"pure-button pure-button-primary"}
+                        onClick={restartGame}>Restart
+                    </button>
+                </>}
+                {!gameIsWon && <><GuessControls inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    submitHandler={submitGuess}
+                    guessesSoFar={guessHistory}/>
+                <div className={"button-main-restart-container"}>
+                    <button className={"pure-button button-main-restart"}
+                        onClick={restartGame}>Restart
+                    </button>
+                </div>
+                </>}
+                <GuessHistory guesses={guessHistory}/>
+            </>;
     }
 
 
     return (
         <div className={"game-container"}>
-            <h1 className={"game-title-header"}>4Digits</h1>
-            {gameIsWon && <>
-                <h1 className={"game-won-header"}>You won!</h1>
-                <h2>The 4 digits were: {answer}</h2>
-                <button className={"pure-button pure-button-primary"}
-                    onClick={restartGame}>Restart
-                </button>
-            </>}
-            {!gameIsWon && <><MakeGuess submitHandler={submitGuess}
-                guessesSoFar={guessHistory}/>
-            <div className={"button-main-restart-container"}>
-                <button className={"pure-button button-main-restart"}
-                    onClick={restartGame}>Restart
-                </button>
-            </div>
-            </>}
-            <GuessHistory guesses={guessHistory}/>
+            {body}
         </div>
     );
 

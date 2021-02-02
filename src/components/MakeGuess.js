@@ -1,7 +1,7 @@
 import React from "react";
 import {isValidInput, isDuplicateGuess} from "../util/logic";
 
-export default function InputField(props) {
+export default function MakeGuess(props) {
 
     const MAX_LENGTH = 4;
 

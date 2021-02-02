@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function GuessList(props) {
+export default function GuessHistory(props) {
 
     return (
         <>

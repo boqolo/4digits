@@ -1,6 +1,6 @@
 import React from "react";
-import InputField from "./InputField";
-import GuessList from "./GuessList";
+import MakeGuess from "./MakeGuess";
+import GuessHistory from "./GuessHistory";
 import {
     create4Digits,
     getGuessAccuracy,
@@ -69,7 +69,7 @@ export default function FourDigits() {
                     onClick={restartGame}>Restart
                 </button>
             </>}
-            {!gameIsWon && <><InputField submitHandler={submitGuess}
+            {!gameIsWon && <><MakeGuess submitHandler={submitGuess}
                 guessesSoFar={guessHistory}/>
             <div className={"button-main-restart-container"}>
                 <button className={"pure-button button-main-restart"}
@@ -77,7 +77,7 @@ export default function FourDigits() {
                 </button>
             </div>
             </>}
-            <GuessList guesses={guessHistory}/>
+            <GuessHistory guesses={guessHistory}/>
         </div>
     );
 

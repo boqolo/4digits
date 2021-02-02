@@ -10,7 +10,7 @@ import {
     getCows
 } from "../util/logic";
 
-
+// Main Game Component
 export default function FourDigits() {
 
     const MAX_GUESSES = 8;
@@ -51,7 +51,7 @@ export default function FourDigits() {
     if (guessHistory.length === MAX_GUESSES) {
         return <div className={"game-container"}>
             <h1>Game Over.</h1>
-            <p>The answer was {answer}</p>
+            <p>The 4 digits were {answer}</p>
             <button className={"pure-button pure-button-primary"}
                 onClick={restartGame}>Restart
             </button>

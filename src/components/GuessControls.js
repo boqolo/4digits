@@ -38,7 +38,7 @@ export default function GuessControls({
     }, [inputValue]);
 
     /**
-     * Validate input.
+     * Validate input. (Function inspired by Nat Tuck example from class)
      * @param ev Keyboard event
      */
     function controlTextInput(ev) {
@@ -50,7 +50,8 @@ export default function GuessControls({
     }
 
     /**
-     * Allow pressing enter for guess submission.
+     * Allow pressing enter for guess submission. 
+     * (Function based on Nat Tuck example from class)
      * @param ev Keyboard event
      */
     function pressedEnter(ev) {

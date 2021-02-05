@@ -3,7 +3,7 @@ import React from "react";
 export default function GuessHistory({guesses}) {
 
     return (
-        <div>
+        <div className={"guesses-container"}>
             <label className={"guess-list-label"}>Guesses:</label>
             <div className={"pure-g guess-list"}>
                 {guesses.map((guess, i) => {

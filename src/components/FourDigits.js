@@ -66,15 +66,16 @@ export default function FourDigits() {
                         onClick={restartGame}>Restart
                     </button>
                 </>}
-                {!gameIsWon && <><GuessControls inputValue={inputValue}
-                    setInputValue={setInputValue}
-                    submitHandler={submitGuess}
-                    guessesSoFar={guessHistory}/>
-                <div className={"button-main-restart-container"}>
-                    <button className={"pure-button button-main-restart"}
-                        onClick={restartGame}>Restart
-                    </button>
-                </div>
+                {!gameIsWon && <>
+                    <GuessControls inputValue={inputValue}
+                        setInputValue={setInputValue}
+                        submitHandler={submitGuess}
+                        guessesSoFar={guessHistory}/>
+                    <div className={"button-main-restart-container"}>
+                        <button className={"pure-button button-main-restart"}
+                            onClick={restartGame}>Restart
+                        </button>
+                    </div>
                 </>}
                 <GuessHistory guesses={guessHistory}/>
             </>;

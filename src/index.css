@@ -94,6 +94,10 @@ input:focus {
     box-shadow: none;
 }
 
+.guesses-container {
+    margin: 5% 0;
+}
+
 .guess-field {
     border: 1px dotted var(--whiteish);
     border-radius: 10px;

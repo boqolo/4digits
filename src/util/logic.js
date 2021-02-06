@@ -1,5 +1,5 @@
 /**
- * Constructs a valid 4 digit answer for the game.
+ * Constructs a valid 4 digit answer for the game (includes 0).
  * @returns a 4-tuple of unique digits
  */
 export function create4Digits() {

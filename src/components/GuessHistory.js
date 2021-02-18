@@ -11,7 +11,7 @@ export default function GuessHistory({guesses}) {
                         <div className={"pure-u-1-6"}>#{i + 1}</div>
                         <div className={"pure-u-1-4"}>{guess[0]}</div>
                         <div className={"pure-u-1-4"}>B: {guess[2]}</div>
-                        <div className={"pure-u-1-4"}>C: {guess[1]}</div>
+                        <div className={"pure-u-1-4"}>C: {guess[1] - guess[2]}</div>
                     </div>;
                 })}
             </div>
